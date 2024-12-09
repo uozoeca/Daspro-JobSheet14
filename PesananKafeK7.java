@@ -5,14 +5,14 @@ public class PesananKafeK7 {
         {"Kopi Hitam", "5000"},
         {"Latte", "15000"},
         {"Teh Hangat", "5000"},
-        {"Teh Jepang", "12000"},
+        {"Mie Jebew Slebew", "12000"},
         {"Susu Hitam", "18000"}
     };
-    static String[][] daftarPesanan = new String[10][6];
+    static String[][] daftarPesanan = new String[10][4];
     static int jumlahPesanan = 0;
 
     public static void tambahPesanan(Scanner sc) {
-        if (jumlahPesanan >= 100) {
+        if (jumlahPesanan >= 10) {
             System.out.println("Pesanan Penuh, Tidak Dapat Menambahkan Pesanan");
             return;
         }
