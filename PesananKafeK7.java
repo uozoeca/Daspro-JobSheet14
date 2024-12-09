@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ManajemenPesananKafe {
+public class PesananKafeK7 {
     static String[][] menuKafe = {
         {"Kopi Hitam", "5000"},
         {"Latte", "15000"},
