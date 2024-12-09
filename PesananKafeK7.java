@@ -16,7 +16,7 @@ public class PesananKafeK7 {
             System.out.println("Pesanan Penuh, Tidak Dapat Menambahkan Pesanan");
             return;
         }
-
+    
         System.out.print("Masukkan Nama Pelanggan: ");
         String namaPelanggan = sc.nextLine();
         System.out.print("Masukkan Nomor Meja: ");
@@ -27,9 +27,9 @@ public class PesananKafeK7 {
         for (int i = 0; i < menuKafe.length; i++) {
             System.out.println((i + 1) + ". " + menuKafe[i][0] + " - Rp " + menuKafe[i][1]);
         }
-
+    
         double totalHargaPesanan = 0;
-        StringBuilder detailPesanan = new StringBuilder();
+        String detailPesanan = "";
         boolean pesanLagi = true;
     
         while (pesanLagi) {
@@ -50,26 +50,25 @@ public class PesananKafeK7 {
                 System.out.println("Jumlah Pesanan Harus Lebih Dari 0");
                 continue;
             }
-            
+    
             String namaMenu = menuKafe[nomorMenu - 1][0];
             double hargaMenu = Double.parseDouble(menuKafe[nomorMenu - 1][1]);
             double hargaTotalMenu = hargaMenu * jumlahItem;
-
+    
             totalHargaPesanan += hargaTotalMenu;
-            detailPesanan.append(namaMenu).append(" x ").append(jumlahItem)
-                    .append(" = Rp ").append(String.format("%.0f", hargaTotalMenu)).append("\n");
+            detailPesanan += namaMenu + " x " + jumlahItem + " = Rp" + String.format("%.0f", hargaTotalMenu) + "\n";
         }
-
+    
         System.out.println("\nPesanan Berhasil Ditambahkan");
         System.out.println("Total Harga Pesanan: Rp" + String.format("%.0f", totalHargaPesanan));
-
+    
         daftarPesanan[jumlahPesanan][0] = namaPelanggan;
         daftarPesanan[jumlahPesanan][1] = String.valueOf(nomorMeja);
-        daftarPesanan[jumlahPesanan][2] = detailPesanan.toString();
+        daftarPesanan[jumlahPesanan][2] = detailPesanan;
         daftarPesanan[jumlahPesanan][3] = String.format("%.0f", totalHargaPesanan);
         jumlahPesanan++;
-    }    
-
+    }
+    
     public static void tampilkanPesanan() {
         if (jumlahPesanan == 0) {
             System.out.println("Tidak Ada Pesanan");
