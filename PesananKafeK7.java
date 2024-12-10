@@ -59,7 +59,6 @@ public class PesananKafeK7 {
         boolean pelangganDitemukan = false;
         for (int i = 0; i < jumlahPesanan; i++) {
             if (namaPelanggan[i].equals(nama) && nomorMeja[i] == meja) {
-        
                 detailPesanan[i] += " " + detail;
                 totalHargaPesanan[i] += totalHarga;
                 pelangganDitemukan = true;
