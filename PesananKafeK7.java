@@ -58,16 +58,30 @@ public class PesananKafeK7 {
             totalHargaPesanan += hargaTotalMenu;
             detailPesanan += namaMenu + " x " + jumlahItem + " = Rp" + String.format("%.0f", hargaTotalMenu) + "\n";
         }
+
+        boolean pelangganDitemukan = false;
+        for (int i = 0; i < jumlahPesanan; i++) {
+            if (daftarPesanan[i][0].equalsIgnoreCase(namaPelanggan) &&
+                Integer.parseInt(daftarPesanan[i][1]) == nomorMeja) {
+                daftarPesanan[i][2] += detailPesanan;
+                double totalHargaLama = Double.parseDouble(daftarPesanan[i][3]);
+                daftarPesanan[i][3] = String.format("%.0f", totalHargaLama + totalHargaPesanan);
+                pelangganDitemukan = true;
+                break;
+            }
+        }
+    
+        if (!pelangganDitemukan) {
+            daftarPesanan[jumlahPesanan][0] = namaPelanggan;
+            daftarPesanan[jumlahPesanan][1] = String.valueOf(nomorMeja);
+            daftarPesanan[jumlahPesanan][2] = detailPesanan;
+            daftarPesanan[jumlahPesanan][3] = String.format("%.0f", totalHargaPesanan);
+            jumlahPesanan++;
+        }
     
         System.out.println("\nPesanan Berhasil Ditambahkan");
         System.out.println("Total Harga Pesanan: Rp" + String.format("%.0f", totalHargaPesanan));
-    
-        daftarPesanan[jumlahPesanan][0] = namaPelanggan;
-        daftarPesanan[jumlahPesanan][1] = String.valueOf(nomorMeja);
-        daftarPesanan[jumlahPesanan][2] = detailPesanan;
-        daftarPesanan[jumlahPesanan][3] = String.format("%.0f", totalHargaPesanan);
-        jumlahPesanan++;
-    }
+    }    
     
     public static void tampilkanPesanan() {
         if (jumlahPesanan == 0) {
