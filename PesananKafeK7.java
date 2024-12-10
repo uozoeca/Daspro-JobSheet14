@@ -1,37 +1,35 @@
 import java.util.Scanner;
 
 public class PesananKafeK7 {
-    static String[][] menuKafe = {
-        {"Kopi Hitam", "5000"},
-        {"Latte", "15000"},
-        {"Teh Hangat", "5000"},
-        {"Mie Jebew Slebew", "12000"},
-        {"Susu Hitam", "18000"}
-    };
-    static String[][] daftarPesanan = new String[10][4];
+    static String[] menuKafe = {"Kopi Hitam", "Latte", "Teh Hangat", "Mie Jebew Slebew", "Susu Hitam"};
+    static int[] hargaKafe = {5000, 15000, 5000, 12000, 18000};
+    static String[] namaPelanggan = new String[10];
+    static String[] detailPesanan = new String[10];
+    static double[] totalHargaPesanan = new double[10];
+    static int[] nomorMeja = new int[10];
     static int jumlahPesanan = 0;
-
+    
     public static void tambahPesanan(Scanner sc) {
         if (jumlahPesanan >= 10) {
             System.out.println("Pesanan Penuh, Tidak Dapat Menambahkan Pesanan");
             return;
         }
-    
+
         System.out.print("Masukkan Nama Pelanggan: ");
-        String namaPelanggan = sc.nextLine();
+        String nama = sc.nextLine();
         System.out.print("Masukkan Nomor Meja: ");
-        int nomorMeja = sc.nextInt();
+        int meja = sc.nextInt();
         sc.nextLine();
-    
+
         System.out.println("\n===== MENU KAFE =====");
         for (int i = 0; i < menuKafe.length; i++) {
-            System.out.println((i + 1) + ". " + menuKafe[i][0] + " - Rp " + menuKafe[i][1]);
+            System.out.println((i + 1) + ". " + menuKafe[i] + " - Rp " + hargaKafe[i] + "  ");
         }
     
-        double totalHargaPesanan = 0;
-        String detailPesanan = "";
+        double totalHarga = 0;
+        String detail = "";
         boolean pesanLagi = true;
-    
+
         while (pesanLagi) {
             System.out.print("\nPilih Menu (Masukkan Nomor Menu, Atau 0 Untuk Selesai): ");
             int nomorMenu = sc.nextInt();
@@ -44,43 +42,41 @@ public class PesananKafeK7 {
                 continue;
             }
     
-            System.out.print("Masukkan Jumlah Pesanan Untuk " + menuKafe[nomorMenu - 1][0] + ": ");
+            System.out.print("Masukkan Jumlah Pesanan Untuk " + menuKafe[nomorMenu - 1] + ": ");
             int jumlahItem = sc.nextInt();
             if (jumlahItem <= 0) {
                 System.out.println("Jumlah Pesanan Harus Lebih Dari 0");
                 continue;
             }
-    
-            String namaMenu = menuKafe[nomorMenu - 1][0];
-            double hargaMenu = Double.parseDouble(menuKafe[nomorMenu - 1][1]);
-            double hargaTotalMenu = hargaMenu * jumlahItem;
-    
-            totalHargaPesanan += hargaTotalMenu;
-            detailPesanan += namaMenu + " x " + jumlahItem + " = Rp" + String.format("%.0f", hargaTotalMenu) + "\n";
+
+            String namaMenu = menuKafe[nomorMenu - 1];
+            int hargaMenu = hargaKafe[nomorMenu - 1];
+            int hargaTotalMenu = hargaMenu * jumlahItem;
+            totalHarga += hargaTotalMenu;
+            detail += "\n" + namaMenu + " x " + jumlahItem + " = Rp" + hargaTotalMenu + "  ";
         }
 
         boolean pelangganDitemukan = false;
         for (int i = 0; i < jumlahPesanan; i++) {
-            if (daftarPesanan[i][0].equalsIgnoreCase(namaPelanggan) &&
-                Integer.parseInt(daftarPesanan[i][1]) == nomorMeja) {
-                daftarPesanan[i][2] += detailPesanan;
-                double totalHargaLama = Double.parseDouble(daftarPesanan[i][3]);
-                daftarPesanan[i][3] = String.format("%.0f", totalHargaLama + totalHargaPesanan);
+            if (namaPelanggan[i].equals(nama) && nomorMeja[i] == meja) {
+        
+                detailPesanan[i] += " " + detail;
+                totalHargaPesanan[i] += totalHarga;
                 pelangganDitemukan = true;
                 break;
             }
         }
-    
+
         if (!pelangganDitemukan) {
-            daftarPesanan[jumlahPesanan][0] = namaPelanggan;
-            daftarPesanan[jumlahPesanan][1] = String.valueOf(nomorMeja);
-            daftarPesanan[jumlahPesanan][2] = detailPesanan;
-            daftarPesanan[jumlahPesanan][3] = String.format("%.0f", totalHargaPesanan);
+            namaPelanggan[jumlahPesanan] = nama;
+            nomorMeja[jumlahPesanan] = meja;
+            detailPesanan[jumlahPesanan] = detail;
+            totalHargaPesanan[jumlahPesanan] = totalHarga;
             jumlahPesanan++;
         }
     
         System.out.println("\nPesanan Berhasil Ditambahkan");
-        System.out.println("Total Harga Pesanan: Rp" + String.format("%.0f", totalHargaPesanan));
+        System.out.println("Total Harga Pesanan: Rp" + totalHarga);
     }    
     
     public static void tampilkanPesanan() {
@@ -91,11 +87,10 @@ public class PesananKafeK7 {
         
         System.out.println("\n=== DAFTAR PESANAN ===");
         for (int i = 0; i < jumlahPesanan; i++) {
-            System.out.println("Nama Pelanggan: " + daftarPesanan[i][0]);
-            System.out.println("Nomor Meja: " + daftarPesanan[i][1]);
-            System.out.println("Detail Pesanan:");
-            System.out.println(daftarPesanan[i][2]);
-            System.out.println("Total Harga Pesanan: Rp" + daftarPesanan[i][3]);
+            System.out.println("Nama Pelanggan: " + namaPelanggan[i]);
+            System.out.println("Nomor Meja: " + nomorMeja[i]);
+            System.out.println("Detail Pesanan: " + detailPesanan[i]);
+            System.out.println("Total Harga Pesanan: Rp" + totalHargaPesanan[i]);
             System.out.println("======================");
         }
     }
